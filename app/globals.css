@@ -5,12 +5,14 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --button: red;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #fff;
+    --foreground: #000;
+    --success: #008000ff;
   }
 }
 
@@ -18,6 +20,112 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.question {
+  font-weight: bolder;
+  font-size: 2em;
+  padding: 20px;
+  margin: 0 0 30px 0;
+  text-align: center;
+}
+
+.answer-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3%;
+  margin: auto;
+  max-width: 300px;
+}
+
+.answer-option {
+  padding: 20px 0;
+  flex: 47%;
+  background: var(--button);
+  font-weight: bold;
+  border-radius: 4px;
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: center;
+  justify-content: center;
+  color: var(--background);
+  margin-bottom: 3%;
+  font-size: 17px;
+}
+
+.agent {
+  max-width: 800px;
+  margin: auto;
+}
+
+.start {
+  background: var(--success);
+  color: var(--background);
+  border-radius: 4px;
+  font-weight: bold;
+  text-align: center;
+  padding: 5px 20px;
+  font-size: 1.25em;
+  margin: auto;
+}
+
+.chatbot-container {
+  display: flex;
+  height: 100vh;
+  margin: auto;
+  flex-direction: column;
+}
+
+.ldsRipple,
+.ldsRipple div {
+  box-sizing: border-box;
+}
+.ldsRipple {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+  margin: auto;
+}
+.ldsRipple div {
+  position: absolute;
+  border: 4px solid currentColor;
+  opacity: 1;
+  border-radius: 50%;
+  animation: ldsRipple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+}
+.ldsRipple div:nth-child(2) {
+  animation-delay: -0.5s;
+}
+@keyframes ldsRipple {
+  0% {
+    top: 36px;
+    left: 36px;
+    width: 8px;
+    height: 8px;
+    opacity: 0;
+  }
+  4.9% {
+    top: 36px;
+    left: 36px;
+    width: 8px;
+    height: 8px;
+    opacity: 0;
+  }
+  5% {
+    top: 36px;
+    left: 36px;
+    width: 8px;
+    height: 8px;
+    opacity: 1;
+  }
+  100% {
+    top: 0;
+    left: 0;
+    width: 80px;
+    height: 80px;
+    opacity: 0;
+  }
 }
 
 @layer utilities {
