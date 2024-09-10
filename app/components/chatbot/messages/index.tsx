@@ -1,3 +1,8 @@
+export interface MessageInterface {
+  role: string;
+  text: string;
+}
+
 const UserMessage = ({ text }: { text: string }) => {
   return <div>{text}</div>;
 };
@@ -20,7 +25,7 @@ const CodeMessage = ({ text }: { text: string }) => {
   );
 };
 
-const Message = ({ role, text }) => {
+const Message = ({ role, text }: MessageInterface) => {
   switch (role) {
     case "user":
       return <UserMessage text={text} />;

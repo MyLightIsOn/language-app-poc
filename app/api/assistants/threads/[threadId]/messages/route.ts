@@ -1,7 +1,10 @@
 import { openai } from "@/app/openai";
 
 // Send a new message to a thread
-export async function POST(request, { params: { threadId } }) {
+export async function POST(
+  request: { json: () => PromiseLike<{ content: never }> | { content: never } },
+  { params: { threadId } }: never,
+) {
   const { content } = await request.json();
 
   await openai.beta.threads.messages.create(threadId, {
@@ -10,8 +13,8 @@ export async function POST(request, { params: { threadId } }) {
   });
 
   const stream = openai.beta.threads.runs.stream(threadId, {
-    assistant_id: process.env.OPENAI_ASSISTANT_ID,
+    assistant_id: process.env.OPENAI_ASSISTANT_ID || "",
   });
-  A;
+
   return new Response(stream.toReadableStream());
 }
