@@ -13,6 +13,7 @@ const config: Config = {
         foreground: "var(--foreground)",
         button: "var(--button)",
         success: "var(--success)",
+        selected: "var(--selected)",
       },
     },
   },

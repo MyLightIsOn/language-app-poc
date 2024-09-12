@@ -15,6 +15,36 @@ export default function Chatbot() {
   const [selectedLevel, setSelectedLevel] = useState(1);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [selectedTopic, setSelectedTopic] = useState("Food");
+  const [canRestart, setCanRestart] = useState(false);
+
+  const levels = [
+    {
+      level: 1,
+      title: "newbie",
+    },
+    {
+      level: 2,
+      title: "beginner",
+    },
+    {
+      level: 3,
+      title: "beginner",
+    },
+    {
+      level: 4,
+      title: "intermediate",
+    },
+    {
+      level: 5,
+      title: "advanced",
+    },
+    {
+      level: 6,
+      title: "advanced",
+    },
+  ];
+
+  const topics = ["Food", "Work", "Travel", "Dinosours"];
 
   // create a new threadID when chat component created
   useEffect(() => {
@@ -82,6 +112,7 @@ export default function Chatbot() {
 
     stream.on("event", (event) => {
       if (event.event === "thread.run.completed") setLoading(false);
+      if (event.event === "thread.run.completed") setCanRestart(true);
     });
   };
 
@@ -103,34 +134,92 @@ export default function Chatbot() {
 
   const handleSubmitQuestion = (e: React.UIEvent<HTMLButtonElement>) => {
     e.preventDefault();
+    setCanRestart(false);
     setLoading(true);
     const requestQuestion = `Give me a test question from HSK level ${selectedLevel} about ${selectedTopic}.`;
     sendMessage(requestQuestion);
     setQuestionReload(true);
   };
 
+  const message = messages[messages.length - 1];
+
   return (
     <div className={"chatbot-container"}>
-      {!loading &&
-        messages.map((msg, index) => (
-          <Message key={index} role={msg.role} text={msg.text} />
-        ))}
+      {!loading && message && (
+        <Message
+          key={message.text.substring(0, 5)}
+          role={message.role}
+          text={message.text}
+        />
+      )}
+
+      {!loading && canRestart && (
+        <button
+          className={
+            "bg-selected border border-selected text-white p-5 hover:border-black hover:bg-white hover:text-black"
+          }
+          onClick={(e) => handleSubmitQuestion(e)}
+        >
+          Reset Question
+        </button>
+      )}
 
       {loading && (
-        <div className={"ldsRipple"}>
-          <div></div>
-          <div></div>
-        </div>
+        <>
+          <p className={"absolute text-lg top-52 w-full text-center font-bold"}>
+            Generating Question...
+          </p>
+          <div className={"ldsRipple"}>
+            <div></div>
+            <div></div>
+          </div>
+        </>
       )}
 
       {!questionReload && (
-        <button
-          className={"start"}
-          onClick={(e) => handleSubmitQuestion(e)}
-          type="submit"
-        >
-          Start
-        </button>
+        <>
+          <button
+            className={"start"}
+            onClick={(e) => handleSubmitQuestion(e)}
+            type="submit"
+          >
+            Start
+          </button>
+          <div>
+            <div className={"flex w-fit gap-1 mx-auto mb-5"}>
+              {levels.map((level) => (
+                <button
+                  className={`level-select ${level.level === selectedLevel ? `level-selected` : ""}`}
+                  key={`${level.level}-${level.title}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setSelectedLevel(level.level);
+                  }}
+                >
+                  {level.level}
+                </button>
+              ))}
+            </div>
+            <div
+              className={
+                "flex w-fit gap-1 mx-auto mb-5 justify-around flex-col"
+              }
+            >
+              {topics.map((topic) => (
+                <button
+                  className={`level-select ${topic === selectedTopic ? `level-selected` : ""}`}
+                  key={`${topic}`}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setSelectedTopic(topic);
+                  }}
+                >
+                  {topic}
+                </button>
+              ))}
+            </div>
+          </div>
+        </>
       )}
     </div>
   );

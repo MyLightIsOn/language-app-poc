@@ -5,7 +5,8 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  --button: red;
+  --button: #d1383d;
+  --selected: #007180;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -71,7 +72,7 @@ body {
 
 .chatbot-container {
   display: flex;
-  height: 100vh;
+  min-height: 100vh;
   margin: auto;
   flex-direction: column;
 }
@@ -97,6 +98,26 @@ body {
 .ldsRipple div:nth-child(2) {
   animation-delay: -0.5s;
 }
+
+.level-select {
+  background: var(--button);
+  border: 2px solid var(--button);
+  color: var(--background);
+  border-radius: 4px;
+  font-weight: bold;
+  text-align: center;
+  padding: 5px 20px;
+  font-size: 1.25em;
+  margin: auto;
+  width: 100%;
+}
+
+.level-selected {
+  background: var(--background);
+  color: var(--foreground);
+  border: 2px solid var(--foreground);
+}
+
 @keyframes ldsRipple {
   0% {
     top: 36px;
