@@ -44,7 +44,7 @@ export default function Chatbot() {
     },
   ];
 
-  const topics = ["Food", "Work", "Travel", "Dinosours"];
+  const topics = ["Food", "Work", "Travel", "Dinosaurs"];
 
   // create a new threadID when chat component created
   useEffect(() => {
