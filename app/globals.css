@@ -59,6 +59,12 @@ body {
   margin: auto;
 }
 
+.note {
+  text-align: center;
+  position: relative;
+  top: -50px;
+}
+
 .start {
   background: var(--success);
   color: var(--background);

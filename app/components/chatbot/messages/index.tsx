@@ -9,7 +9,15 @@ const UserMessage = ({ text }: { text: string }) => {
 
 const AssistantMessage = ({ text }: { text: string }) => {
   const markup = { __html: text };
-  return <div className={"agent"} dangerouslySetInnerHTML={markup} />;
+  return (
+    <>
+      <div className={"agent"} dangerouslySetInnerHTML={markup} />
+      <span className={"note"}>
+        ** Answer buttons are not hooked up yet. Right now, I am testing the
+        variety of outputs from the AI.
+      </span>
+    </>
+  );
 };
 
 const CodeMessage = ({ text }: { text: string }) => {
